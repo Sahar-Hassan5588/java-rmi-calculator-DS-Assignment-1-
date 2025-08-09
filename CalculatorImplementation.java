@@ -27,21 +27,25 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
         int result;
         switch (operator.toLowerCase()) {
-            case "min" -> result = stack.stream().min(Integer::compare).get();
-            case "max" -> result = stack.stream().max(Integer::compare).get();
-            case "lcm" -> {
+            case "min":
+                result = stack.stream().min(Integer::compare).get();break;
+            case "max":
+                result = stack.stream().max(Integer::compare).get();break;
+            case "lcm":{
                 result = stack.pop();
                 while (!stack.isEmpty()) {
                     result = lcm(result, stack.pop());
                 }
+                break;
             }
-            case "gcd" -> {
+            case "gcd": {
                 result = stack.pop();
                 while (!stack.isEmpty()) {
                     result = gcd(result, stack.pop());
                 }
+                break;
             }
-            default -> {
+            default: {
                 System.out.println("( "+ operator+") is invalid operator or it is not supported in this calculator !!");
                 return;
             }
