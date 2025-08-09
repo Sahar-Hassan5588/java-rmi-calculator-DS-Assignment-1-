@@ -15,28 +15,26 @@ The calculator server maintains a shared stack that clients can interact with re
 1. Open your Linux terminal.
 2. Navigate to the directory containing all Java source files.
 3. Compile all Java source files using the following command:
-'''
+```
 javac *.java
+```
 
-'''
 This command generates the necessary .class files for server and client execution.
 5. Start the Calculator Server by Run the server class:
-'''
+```
 java CalculatorServer
-
-'''
+```
 **Note:** The RMI registry is started automatically within this server using LocateRegistry.createRegistry(1099).
 You do not need to manually start the rmiregistry process from the terminal.
 
 You should see a message:
-'''
+```
 Calculator server is running...
-'''
+```
 6. Run the Client to Test Remote Methods by opening new terminal window (same directory), run the client:
-'''
+```
 java CalculatorClient
-
-'''
+```
 This will connect to the server and test all the remote methods like pushValue, pushOperation, pop, delayPop, and isEmpty.
 The client output will show the results of each operation.
 
