@@ -24,14 +24,14 @@ This command generates the necessary `.class` files for server and client execut
 ```
 java CalculatorServer
 ```
-**Note:** The RMI registry is started automatically within this server using LocateRegistry.createRegistry(1099).
-You do not need to manually start the rmiregistry process from the terminal.<br/>
+**Note:** The RMI registry is started automatically within this server using `LocateRegistry.createRegistry(1099)`.
+You do not need to manually start the `rmiregistry` process from the terminal.<br/>
 
 You should see a message:
 `
 Calculator server is running...
 `
-6. Run the Client to Test Remote Methods by opening new terminal window (same directory), run the client:
+<br/> 6. Run the Client to Test Remote Methods by opening new terminal window (same directory), run the client:
 ```
 java CalculatorClient
 ```
