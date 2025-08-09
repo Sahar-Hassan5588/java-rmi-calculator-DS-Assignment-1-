@@ -1,7 +1,7 @@
 # java-rmi-calculator-DS-Assignment-1-
 ## Overview
 This project implements a distributed calculator system using Java Remote Method Invocation (RMI).
-The calculator server maintains a shared stack that clients can interact with remotely to perform operations such as pushing values, applying mathematical operations (min, max, gcd, lcm), popping values, checking if the stack is empty, and delayed popping.
+The calculator server maintains a shared stack that clients can interact with remotely to perform operations such as pushing values, applying mathematical operations (min, max, gcd, lcm), popping values, checking if the stack is empty, and delayed popping. <br/>
 **The objective of this assignment**  is to demonstrate understanding of remote method invocation, synchronization, and multi-client distributed systems in Java.
 
 ## Files Included
@@ -19,18 +19,18 @@ The calculator server maintains a shared stack that clients can interact with re
 javac *.java
 ```
 
-This command generates the necessary .class files for server and client execution.
+This command generates the necessary `.class` files for server and client execution.<br/>
 5. Start the Calculator Server by Run the server class:
 ```
 java CalculatorServer
 ```
 **Note:** The RMI registry is started automatically within this server using LocateRegistry.createRegistry(1099).
-You do not need to manually start the rmiregistry process from the terminal.
+You do not need to manually start the rmiregistry process from the terminal.<br/>
 
 You should see a message:
-```
+`
 Calculator server is running...
-```
+`
 6. Run the Client to Test Remote Methods by opening new terminal window (same directory), run the client:
 ```
 java CalculatorClient
