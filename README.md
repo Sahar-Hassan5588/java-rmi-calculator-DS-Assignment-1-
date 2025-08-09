@@ -14,29 +14,46 @@ The calculator server maintains a shared stack that clients can interact with re
 ## How to Compile and Run the Java RMI Calculator Application
 1. Open your Linux terminal.
 2. Navigate to the directory containing all Java source files.
-3. Compile all Java source files using the following command:
+3. **Compile all Java source files** using the following command:
 ```
 javac *.java
 ```
 
-This command generates the necessary `.class` files for server and client execution.<br/>
-5. Start the Calculator Server by Run the server class:
+This command generates the necessary `.class` files for server and client execution.<br/><br/>
+5. **Start the Calculator Server** by Run the server class:
 ```
 java CalculatorServer
 ```
 **Note:** The RMI registry is started automatically within this server using `LocateRegistry.createRegistry(1099)`.
-You do not need to manually start the `rmiregistry` process from the terminal.<br/>
+You do not need to manually start the `rmiregistry` process from the terminal.<br/><br/>
 
 You should see a message:
 `
 Calculator server is running...
 `
-<br/> 6. Run the Client to Test Remote Methods by opening new terminal window (same directory), run the client:
+<br/><br/> 6. **Run the Client** to Test Remote Methods by opening new terminal window (same directory), run the client:
 ```
 java CalculatorClient
 ```
 This will connect to the server and test all the remote methods like pushValue, pushOperation, pop, delayPop, and isEmpty.
 The client output will show the results of each operation.
+
+## Simulating Multiple Clients
+To simulate multiple clients concurrently, open additional terminal windows and run the client program `java CalculatorClient` simultaneously in each. This demonstrates multiple clients accessing the same remote server stack.
+
+
+## Summary of Terminal Commands 
+```
+# Compile all source files
+javac *.java
+
+# Start the server (also starts RMI registry)
+java CalculatorServer
+
+# In one or more new terminal windows, start clients
+java CalculatorClient
+
+```
 
 ## Environment
 These commands assume a Linux or Mac terminal environment with Java JDK installed and java & javac in your PATH.
