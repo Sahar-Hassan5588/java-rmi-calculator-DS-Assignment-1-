@@ -42,8 +42,8 @@ Upon connection, the client is assigned a unique clientId, and you can select fr
 3. Pop values from the stack.
 4. Delay and then pop a value after a specified time in milliseconds.
 5. Check if the stack is empty.
-6. Exit the client.
-<br/> The program provides prompts and feedback for each action, including skipping invalid inputs, preventing operations on an empty stack, and displaying results of operations.
+6. Exit the client. <br/>
+The program provides prompts and feedback for each action, including skipping invalid inputs, preventing operations on an empty stack, and displaying results of operations.
 
 ## Simulating Multiple Clients
 To simulate multiple clients concurrently, open additional terminal windows and run the client program `java CalculatorClient` simultaneously in each. This demonstrates multiple clients accessing the same remote server stack.
