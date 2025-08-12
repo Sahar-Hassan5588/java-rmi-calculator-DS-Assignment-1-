@@ -9,7 +9,7 @@ public interface Calculator extends Remote {
       void no return value
       @throws RemoteException if remote communication fails
      */
-    void pushValue(int val) throws RemoteException;
+    void pushValue(String clientId, int val) throws RemoteException;
 
     /*
       Push an operation onto the stack.
@@ -20,21 +20,21 @@ public interface Calculator extends Remote {
       void no return value
       @throws RemoteException if remote communication fails.
      */
-    void pushOperation(String operator) throws RemoteException;
+    void pushOperation(String clientId, String operator) throws RemoteException;
 
     /*
       Pop the top value from the stack.
       @return the popped integer value
       @throws RemoteException if remote communication fails
      */
-    int pop() throws RemoteException;
+    int pop(String clientId) throws RemoteException;
 
     /*
       Check if the stack is empty.
       @return true if empty, false otherwise
       @throws RemoteException if remote communication fails
      */
-    boolean isEmpty() throws RemoteException;
+    boolean isEmpty(String clientId) throws RemoteException;
 
     /*
       Wait for a given time in milliseconds, then pop the top value.
@@ -42,5 +42,5 @@ public interface Calculator extends Remote {
       @return the popped integer value
       @throws RemoteException if remote communication fails
      */
-    int delayPop(int millis) throws RemoteException;
+    int delayPop(String clientId, int millis) throws RemoteException;
 }
