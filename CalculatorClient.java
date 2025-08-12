@@ -1,11 +1,17 @@
 import java.rmi.Naming;
 import java.util.Scanner;
+import java.util.UUID;
 
 // A client app to test the Calculator RMI service
 public class CalculatorClient {
     public static void main(String[] args) throws Exception {
         // Connect to the Calculator service on localhost
         Calculator calc = (Calculator) Naming.lookup("rmi://localhost/Calculator");
+         
+        // Generate unique client ID for this client instance
+        String clientId = "Client-" + UUID.randomUUID().toString();
+        System.out.println("Your client ID: " + clientId);
+
         Scanner scanner = new Scanner(System.in);
         
         while (true) {
@@ -29,7 +35,7 @@ public class CalculatorClient {
                     for (String part : parts) {
                         try {
                             int val = Integer.parseInt(part.trim());
-                            calc.pushValue(val);
+                            calc.pushValue(clientId, val);
                             count++;
                         } catch (NumberFormatException e) {
                             System.out.println("\nSkipping invalid input: '" + part.trim() + "'");
@@ -39,7 +45,7 @@ public class CalculatorClient {
                     break;
 
                 case "2":
-                    if (calc.isEmpty()) {
+                    if (calc.isEmpty(clientId)) {
                         System.out.println("\nStack is empty. Please push values first.");
                         break;
                     }
@@ -55,14 +61,14 @@ public class CalculatorClient {
                         System.out.println("\nInvalid operation. Please select one from the list.");
                         break;
                     }
-                    calc.pushOperation(operation);
+                    calc.pushOperation(clientId, operation);
                     System.out.println("\nOperation '" + operation + "' performed.");
                     System.out.println("Result has been pushed to the stack. (Use 'Pop' to retrieve it.)");
                     break;
 
                 case "3":
                     try {
-                        int val = calc.pop();
+                        int val = calc.pop(clientId);
                         System.out.println("\nPopped value: " + val);
                     } catch (Exception e) {
                         System.out.println("\nStack is empty. Nothing to pop.");
@@ -74,7 +80,7 @@ public class CalculatorClient {
                     String delayStr = scanner.nextLine().trim();
                     try {
                         int delay = Integer.parseInt(delayStr);
-                        int val = calc.delayPop(delay);
+                        int val = calc.delayPop(clientId, delay);
                         System.out.println("\nAfter delay, popped value: " + val);
                     } catch (NumberFormatException e) {
                         System.out.println("\nInvalid input. Please enter a valid number.");
@@ -84,7 +90,7 @@ public class CalculatorClient {
                     break;
 
                 case "5":
-                    boolean empty = calc.isEmpty();
+                    boolean empty = calc.isEmpty(clientId);
                     System.out.println("\nStack is empty? " + empty);
                     break;
 
