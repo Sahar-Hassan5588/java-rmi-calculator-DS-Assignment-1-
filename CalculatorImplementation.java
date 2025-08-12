@@ -1,27 +1,35 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 // Implementation of the Calculator interface for Java RMI
 public class CalculatorImplementation extends UnicastRemoteObject implements Calculator {
 
-    private final Stack<Integer> stack;
+    private final Map<String, Stack<Integer>> clientStacks;
 
     public CalculatorImplementation() throws RemoteException {
         super();
-        stack = new Stack<>();
+        clientStacks = new HashMap<>();
     }
 
+    // Helper to create/get a stack for clientId
+    private synchronized Stack<Integer> getStack(String clientId) {
+        return clientStacks.computeIfAbsent(clientId, k -> new Stack<>());
+    }
     @Override
-    public synchronized void pushValue(int val) throws RemoteException {
+    public synchronized void pushValue(String clientId, int val) throws RemoteException {
+        Stack<Integer> stack = getStack(clientId);
         stack.push(val);
-        System.out.println("Pushed value: " + val);
+        System.out.println("Client " + clientId + "Pushed value: " + val);
     }
 
     @Override
-    public synchronized void pushOperation(String operator) throws RemoteException {
+    public synchronized void pushOperation(String clientId, String operator) throws RemoteException {
+        Stack<Integer> stack = getStack(clientId);
         if (stack.isEmpty()) {
-            System.out.println("Stack is empty !!!");
+            System.out.println("Client " + clientId + ": Stack is empty !!!");
             return;
         }
 
@@ -46,7 +54,7 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
                 break;
             }
             default: {
-                System.out.println("( "+ operator+") is invalid operator or it is not supported in this calculator !!");
+                System.out.println("Client " + clientId + ": ( "+ operator+") is invalid operator or it is not supported in this calculator !!");
                 return;
             }
         }
@@ -57,29 +65,31 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
     }
 
     @Override
-    public synchronized int pop() throws RemoteException {
+    public synchronized int pop(String clientId) throws RemoteException {
+        Stack<Integer> stack = getStack(clientId);
         if (stack.isEmpty()) {
-            throw new RemoteException("Stack is empty !!");
+            throw new RemoteException("Client " + clientId + ": "+"Stack is empty !!");
         }
         int val = stack.pop();
-        System.out.println("Popped value: " + val);
+        System.out.println("Client " + clientId + ": "+ "Popped value: " + val);
         return val;
     }
 
     @Override
-    public synchronized boolean isEmpty() throws RemoteException {
+    public synchronized boolean isEmpty(String clientId) throws RemoteException {
+        Stack<Integer> stack = getStack(clientId);
         return stack.isEmpty();
     }
 
     @Override
-    public synchronized int delayPop(int millis) throws RemoteException {
+    public synchronized int delayPop(String clientId, int millis) throws RemoteException {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RemoteException("Thread interrupted", e);
         }
-        return pop();
+        return pop(clientId);
     }
 
     /*
