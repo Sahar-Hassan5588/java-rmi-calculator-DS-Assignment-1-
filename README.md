@@ -35,8 +35,15 @@ Calculator server is running...
 ```
 java CalculatorClient
 ```
-This will connect to the server and test all the remote methods like pushValue, pushOperation, pop, delayPop, and isEmpty.
-The client output will show the results of each operation.
+This will connect to the server and start an **interactive Calculator Client** where you can manually test all remote methods.<br/>
+Upon connection, the client is assigned a unique clientId, and you can select from a menu to: <br/>
+1. Push values onto the stack.
+2. Perform operations (min, max, gcd, lcm) on the stack contents.
+3. Pop values from the stack.
+4. Delay and then pop a value after a specified time in milliseconds.
+5. Check if the stack is empty.
+6. Exit the client.
+The program provides prompts and feedback for each action, including skipping invalid inputs, preventing operations on an empty stack, and displaying results of operations.
 
 ## Simulating Multiple Clients
 To simulate multiple clients concurrently, open additional terminal windows and run the client program `java CalculatorClient` simultaneously in each. This demonstrates multiple clients accessing the same remote server stack.
