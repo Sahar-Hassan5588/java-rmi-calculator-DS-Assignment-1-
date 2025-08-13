@@ -12,7 +12,7 @@ The calculator server maintains a shared stack that clients can interact with re
 + **AutomatedTestClient.java:** Additional client to automate testing with single and multiple clients.
 
 ## How to Compile and Run the Java RMI Calculator Application
-1. Open your Linux terminal.
+1. Open your Linux or Mac terminal.
 2. Navigate to the directory containing all Java source files.
 3. **Compile all Java source files** using the following command:
 ```
@@ -42,13 +42,51 @@ Upon connection, the client is assigned a unique clientId, and you can select fr
 3. Pop values from the stack.
 4. Delay and then pop a value after a specified time in milliseconds.
 5. Check if the stack is empty.
-6. Exit the client. <br/>
-The program provides prompts and feedback for each action, including skipping invalid inputs, preventing operations on an empty stack, and displaying results of operations.
+6. Exit the client. <br/> The program provides prompts and feedback for each action, including skipping invalid inputs, preventing operations on an empty stack, and displaying results of operations.
 
 ## Simulating Multiple Clients
 To simulate multiple clients concurrently, open additional terminal windows and run the client program `java CalculatorClient` simultaneously in each. This demonstrates multiple clients accessing the same remote server stack.
 
+## Calculator RMI Testing
+This project provides automated test clients to verify the functionality and concurrency behavior of the `Calculator RMI` service. Tests cover single-client and multi-client scenarios, including stack operations, delayPop timing, and operation correctness.
 
+**1. SingleClientTest**
+- Uses a unique clientId for isolation.
+- Clears the stack before starting.
+- Performs 5 tests: `pushValue/pop`, `pushOperation(max)`, `pushOperation(lcm)`, `isEmpty`, `delayPop`.
+- Outputs PASS/FAIL for each test and summary.
+- Can run multiple instances in parallel without conflicts.
+
+**Run:**
+```
+java SingleClientTest
+```
+
+**2. CalculatorTestHarness**
+- Structured automated tests for core Calculator functionality.
+- Tests `pushValue`, `pop`, `pushOperation(gcd)`, `delayPop`, `isEmpty`.
+- Each test uses a unique clientId.
+- Logs detailed PASS/FAIL messages.
+**Run:**
+```
+java CalculatorTestHarness
+```
+
+**3. MultiClientTest**
+- Simulates multiple clients concurrently to test stack isolation and thread safety.
+- Launches multiple ClientThread instances with unique clientIds.
+- Each client performs `pushValue`, `pushOperation(min)`, `pop`, `isEmpty`, `delayPop`.
+- Prints PASS/FAIL per client and operation.
+**Run:**
+```
+java MultiClientTest
+```
+
+**Notes:**
+- RMI registry must run on localhost:1099 with "Calculator" bound.
+- Each client uses an isolated stack.
+- Don't forget to run the Server first before any test.
+  
 ## Summary of Terminal Commands 
 ```
 # Compile all source files
@@ -60,6 +98,24 @@ java CalculatorServer
 # In one or more new terminal windows, start clients
 java CalculatorClient
 
+```
+## Summary of Testing Commands
+
+```
+# Compile all source files
+javac *.java
+
+# Start the Calculator server (ensure RMI registry runs)
+java CalculatorServer
+
+# Run single-client automated test
+java SingleClientTest
+
+# Run structured test harness
+java CalculatorTestHarness
+
+# Run multi-client concurrency test
+java MultiClientTest
 ```
 
 ## Environment
