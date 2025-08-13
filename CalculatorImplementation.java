@@ -1,8 +1,8 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 
 // Implementation of the Calculator interface for Java RMI
 public class CalculatorImplementation extends UnicastRemoteObject implements Calculator {
@@ -11,23 +11,27 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
     public CalculatorImplementation() throws RemoteException {
         super();
-        clientStacks = new HashMap<>();
+        clientStacks = new ConcurrentHashMap<>();
     }
 
     // Helper to create/get a stack for clientId
-    private synchronized Stack<Integer> getStack(String clientId) {
+    private Stack<Integer> getStack(String clientId) {
         return clientStacks.computeIfAbsent(clientId, k -> new Stack<>());
-    }
-    @Override
-    public synchronized void pushValue(String clientId, int val) throws RemoteException {
-        Stack<Integer> stack = getStack(clientId);
-        stack.push(val);
-        System.out.println("Client " + clientId + "Pushed value: " + val);
     }
 
     @Override
-    public synchronized void pushOperation(String clientId, String operator) throws RemoteException {
+    public void pushValue(String clientId, int val) throws RemoteException {
         Stack<Integer> stack = getStack(clientId);
+        synchronized (stack) {
+        stack.push(val);
+        }
+        System.out.println("Client " + clientId + ": Pushed value: " + val);
+    }
+
+    @Override
+    public void pushOperation(String clientId, String operator) throws RemoteException {
+        Stack<Integer> stack = getStack(clientId);
+        synchronized(stack){
         if (stack.isEmpty()) {
             System.out.println("Client " + clientId + ": Stack is empty !!!");
             return;
@@ -61,35 +65,46 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
         stack.clear();
         stack.push(result);
-        System.out.println("Operation ( " + operator + " ) result pushed: " + result);
+        System.out.println("Client " + clientId +" : Operation ( " + operator + " ) result pushed: " + result);
+        }
+        
     }
 
+
     @Override
-    public synchronized int pop(String clientId) throws RemoteException {
+    public int pop(String clientId) throws RemoteException {
         Stack<Integer> stack = getStack(clientId);
+        synchronized(stack){
         if (stack.isEmpty()) {
             throw new RemoteException("Client " + clientId + ": "+"Stack is empty !!");
         }
         int val = stack.pop();
         System.out.println("Client " + clientId + ": "+ "Popped value: " + val);
         return val;
+        }
     }
 
     @Override
-    public synchronized boolean isEmpty(String clientId) throws RemoteException {
+    public boolean isEmpty(String clientId) throws RemoteException {
         Stack<Integer> stack = getStack(clientId);
+        synchronized(stack){
         return stack.isEmpty();
+        }
     }
 
     @Override
-    public synchronized int delayPop(String clientId, int millis) throws RemoteException {
+    public int delayPop(String clientId, int millis) throws RemoteException {
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RemoteException("Thread interrupted", e);
         }
-        return pop(clientId);
+        Stack<Integer> stack = getStack(clientId);
+        synchronized (stack) {
+        if (stack.isEmpty()) throw new RemoteException("Empty");
+        return stack.pop();
+        }
     }
 
     /*
