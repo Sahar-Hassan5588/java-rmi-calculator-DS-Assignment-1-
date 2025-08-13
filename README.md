@@ -67,6 +67,7 @@ java SingleClientTest
 - Tests `pushValue`, `pop`, `pushOperation(gcd)`, `delayPop`, `isEmpty`.
 - Each test uses a unique clientId.
 - Logs detailed PASS/FAIL messages.
+  
 **Run:**
 ```
 java CalculatorTestHarness
@@ -77,6 +78,7 @@ java CalculatorTestHarness
 - Launches multiple ClientThread instances with unique clientIds.
 - Each client performs `pushValue`, `pushOperation(min)`, `pop`, `isEmpty`, `delayPop`.
 - Prints PASS/FAIL per client and operation.
+
 **Run:**
 ```
 java MultiClientTest
