@@ -112,7 +112,7 @@ java EdgeStressTest
 - **Overall coverage:** With all four test suites combined, the Calculator implementation is tested across functional, concurrency, edge, and stress scenarios.
 
 **Notes:**
-- RMI registry must run on localhost:1099 with "Calculator" bound.
+- RMI registry must run on localhost:1099.
 - Each client uses an isolated stack.
 - Don't forget to run the Server first before any test.
   
