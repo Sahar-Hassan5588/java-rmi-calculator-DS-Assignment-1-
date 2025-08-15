@@ -1,7 +1,7 @@
 # java-rmi-calculator-DS-Assignment-1-
 ## Overview
 This project implements a distributed calculator system using Java Remote Method Invocation (RMI).
-The calculator server maintains a shared stack that clients can interact with remotely to perform operations such as pushing values, applying mathematical operations (min, max, gcd, lcm), popping values, checking if the stack is empty, and delayed popping. <br/>
+The calculator server maintains a shared stack that clients can interact with remotely to perform operations such as pushing values, applying mathematical operations (`min`, `max`, `gcd`, `lcm`), popping values, checking if the stack is empty, and delayed popping. <br/>
 **The objective of this assignment**  is to demonstrate understanding of remote method invocation, synchronization, and multi-client distributed systems in Java.
 
 ## Files Included
@@ -17,7 +17,7 @@ The calculator server maintains a shared stack that clients can interact with re
 
 ## How to Compile and Run the Java RMI Calculator Application
 1. Download all files from this repository.
-2. Open your (Linux or Mac) terminal.
+2. Open your (`Linux` or `Mac`) terminal.
 3. Navigate to the directory containing all Java source files.
 4. **Compile all Java source files** using the following command:
 ```
@@ -112,7 +112,7 @@ java EdgeStressTest
 - **Overall coverage:** With all four test suites combined, the Calculator implementation is tested across functional, concurrency, edge, and stress scenarios.
 
 **Notes:**
-- RMI registry must run on localhost:1099.
+- RMI registry must run on localhost: 1099.
 - Each client uses an isolated stack.
 - Don't forget to run the Server first before any test.
   
@@ -151,23 +151,23 @@ java EdgeStressTest
 ```
 
 ## Environment
-- These commands assume a Linux or Mac terminal environment.
-- Java JDK installed with `java` & `javac` (tested with Java 17+).
+- These commands assume a `Linux` or `Mac` terminal environment.
+- Java `JDK` installed with `java` & `javac` (tested with Java 17+).
 - Ensure the default RMI port (1099) is free before starting the server by following these steps: <br/>
 **1. Check if port 1099 is in use:**
 ```
  lsof -i :1099
 ```
 **Note:** You should see output similar to this if port 1099 is in use: <br/>
-` COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME <br/>
-java     1234 sahar  123u  IPv6 0x...      0t0  TCP *:1099 (LISTEN) ` <br/>
+` COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME ` <br/>
+` java     1234 sahar  123u  IPv6 0x...      0t0  TCP *:1099 (LISTEN) ` <br/>
 This indicates that a Java process is currently listening on port 1099. If nothing is returned, the port is free. <br/>
 
 **2. Terminate any process using the port:** 
 ```
  kill -9 <PID>
 ```
-Then Run the server `CalculatorServer`
+Then Run the server `CalculatorServer`.
 
 
 
