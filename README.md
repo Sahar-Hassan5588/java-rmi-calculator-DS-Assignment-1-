@@ -97,9 +97,12 @@ java MultiClientTest
 - Multi-threaded concurrency under stress.
 - `delayPop` timing and interruption handling.
 <br/>
+
 **Run:**
+
 ```
 java EdgeStressTest
+
 ```
 
 ### Summary
@@ -149,7 +152,7 @@ java EdgeStressTest
 
 ## Environment
 - These commands assume a Linux or Mac terminal environment.
-- with Java JDK installed and java & javac in your PATH.
+- with Java JDK installed and `java` & `javac` (tested with Java 17+).
 - Ensure the default RMI port (1099) is free before starting the server by following these steps:
 **1. Check if port 1099 is in use:**
 ```
