@@ -152,16 +152,16 @@ java EdgeStressTest
 
 ## Environment
 - These commands assume a Linux or Mac terminal environment.
-- with Java JDK installed and `java` & `javac` (tested with Java 17+).
-- Ensure the default RMI port (1099) is free before starting the server by following these steps:
+- Java JDK installed with `java` & `javac` (tested with Java 17+).
+- Ensure the default RMI port (1099) is free before starting the server by following these steps: <br/>
 **1. Check if port 1099 is in use:**
 ```
  lsof -i :1099
 ```
 **Note:** You should see output similar to this if port 1099 is in use: <br/>
-` COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+` COMMAND   PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME <br/>
 java     1234 sahar  123u  IPv6 0x...      0t0  TCP *:1099 (LISTEN) ` <br/>
-This indicates that a Java process is currently listening on port 1099. If nothing is returned, the port is free.
+This indicates that a Java process is currently listening on port 1099. If nothing is returned, the port is free. <br/>
 
 **2. Terminate any process using the port:** 
 ```
