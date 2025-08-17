@@ -14,7 +14,7 @@ The calculator server maintains a shared stack that clients can interact with re
   - **MultiClientTest.java** 
   - **CalculatorTestHarness.java** 
   - **EdgeStressTest.java**
-  - **CalculatorJUnitTest**
+  - **CalculatorJUnitTest.java**
 
 ## How to Compile and Run the Java RMI Calculator Application
 1. Download all files from this repository.
@@ -117,7 +117,7 @@ java EdgeStressTest
 
 **Commands:**<br/>
 **Download JUnit Jar:**<br/>
-Use this command to get the JUnit Platform Console Standalone jar (v1.10.2) from Maven Central:
+To download the required JUnit `.jar` file for running the automated tests, you can use the following command in your terminal:
 
 ```
 curl -O https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar
