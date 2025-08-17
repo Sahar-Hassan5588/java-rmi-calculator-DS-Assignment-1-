@@ -105,11 +105,42 @@ java EdgeStressTest
 
 ```
 
+**5.CalculatorJUnitTest**
+- CalculatorJUnitTest is a single automated JUnit suite that runs all tests I created for the `Calculator RMI` service (`SingleClientTest`, `MultiClientTest`, `EdgeStressTest`).
+- It was built to simplify grading by running all tests in one place.
+- `CalculatorTestHarness` is excluded to avoid duplicate coverage.
+- **Prerequisites for this test:**
+  - Java 17+
+  - `junit-platform-console-standalone-1.10.2.jar` in the project folder you can download it from this website : 
+  - Calculator RMI server running on `localhost:1099` <br/>
+
+**Commands:**
+**Download JUnit Jar:**
+Use this command to get the JUnit Platform Console Standalone jar (v1.10.2) from Maven Central:
+
+```
+curl -O https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.10.2/junit-platform-console-standalone-1.10.2.jar
+
+```
+This command fetches the JUnit Platform Console Standalone version 1.10.2 from the Maven Central repository and saves it in your current directory.
+
+**Compile:**
+```
+javac -cp .:junit-platform-console-standalone-1.10.2.jar *.java
+```
+**Run:**
+```
+java -jar junit-platform-console-standalone-1.10.2.jar --class-path . --scan-class-path
+```
+
+- The built-in JUnit report will display which tests passed or failed, making it easier for grading.
+
 ### Summary
 - **Basic single-client correctness:** `CalculatorTestHarness` + `SingleClientTest`
 - **Concurrency and multi-client isolation:** `MultiClientTest`
 - **Edge cases and stress/load testing:** `EdgeStressTest`
-- **Overall coverage:** With all four test suites combined, the Calculator implementation is tested across functional, concurrency, edge, and stress scenarios.
+- **Automated grading convenience:** `CalculatorJUnitTest` runs three tests in a single JUnit suite to simplify running and grading.
+- **Overall coverage:** With all these test suites combined, the Calculator implementation is tested across functional, concurrency, edge, and stress scenarios.
 
 **Notes:**
 - RMI registry must run on localhost: 1099.
